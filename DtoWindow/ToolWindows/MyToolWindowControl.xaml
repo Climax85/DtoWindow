@@ -1,0 +1,119 @@
+﻿<UserControl x:Class="DtoWindow.ToolWindows.MyToolWindowControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:imaging="clr-namespace:Microsoft.VisualStudio.Imaging;assembly=Microsoft.VisualStudio.Imaging"
+             xmlns:theming="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Imaging"
+             xmlns:util="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Utilities"
+             xmlns:catalog="clr-namespace:Microsoft.VisualStudio.Imaging;assembly=Microsoft.VisualStudio.ImageCatalog"
+             xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
+             xmlns:self="clr-namespace:DtoWindow.Logic.Models"
+             toolkit:Themes.UseVsTheme="True"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             Name="MyToolWindow">
+    <Grid VerticalAlignment="Top">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height = "50" />
+            <RowDefinition Height = "*" />
+        </Grid.RowDefinitions>
+
+        <Label x:Name="lblHeadline"
+               Margin="10"
+               Grid.Row="0" Grid.Column="0"
+               Grid.ColumnSpan="2"
+               Content="Generate Feature"/>
+        <Button Content="load"
+                Click="LoadButton_Click"
+                Height="30"
+                Name="LoadButton" 
+                Grid.Row="0" Grid.Column="2"/>
+        <Button Content="generate"
+                Click="GenerateButton_Click"
+                Height="30"
+                x:Name="GenerateButton" 
+                Grid.Row="0" Grid.Column="2" Margin="0,10,0,10" Visibility="Hidden"/>
+        <TabControl Grid.Row="1"  Grid.ColumnSpan="3" Grid.Column="0">
+            <TabItem Header="List">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="Wähle die Properties für die Listenansicht:" />
+                    <TreeView  Name="trvListClasses"
+                               Height="300">
+                        <TreeView.ItemContainerStyle>
+                            <Style TargetType="{x:Type TreeViewItem}">
+                                <Setter Property="IsExpanded" Value="True"/>
+                            </Style>
+                        </TreeView.ItemContainerStyle>
+                        <TreeView.Resources>
+                            <HierarchicalDataTemplate DataType="{x:Type self:TreeViewItem}" ItemsSource="{Binding Children}">
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox IsChecked="{Binding Path=EnableForList, Mode=TwoWay}" />
+                                    <TextBlock Text="{Binding Name}" />
+                                    <TextBlock Text=" (" />
+                                    <TextBlock Text="{Binding DisplayTypeName}" />
+                                    <TextBlock Text=")" />
+                                </StackPanel>
+                            </HierarchicalDataTemplate>
+                        </TreeView.Resources>
+                    </TreeView>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Create">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="Wähle die Properties für die Erstellansicht:" />
+                    <TreeView  Name="trvCreateClasses"
+                               Height="300">
+                        <TreeView.ItemContainerStyle>
+                            <Style TargetType="{x:Type TreeViewItem}">
+                                <Setter Property="IsExpanded" Value="True" />
+                            </Style>
+                        </TreeView.ItemContainerStyle>
+                        <TreeView.Resources>
+                            <HierarchicalDataTemplate DataType="{x:Type self:TreeViewItem}" ItemsSource="{Binding Children}">
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox IsChecked="{Binding Path=EnableForCreate, Mode=TwoWay}" />
+                                    <TextBlock Text="{Binding Name}" />
+                                    <TextBlock Text=" (" />
+                                    <TextBlock Text="{Binding DisplayTypeName}" />
+                                    <TextBlock Text=")" />
+                                </StackPanel>
+                            </HierarchicalDataTemplate>
+                        </TreeView.Resources>
+                    </TreeView>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Detail">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="Wähle die Properties für die Detailansicht:" />
+                    <TreeView  Name="trvUpdateClasses"
+                               Height="300">
+                        <TreeView.ItemContainerStyle>
+                            <Style TargetType="{x:Type TreeViewItem}">
+                                <Setter Property="IsExpanded" Value="True" />
+                            </Style>
+                        </TreeView.ItemContainerStyle>
+                        <TreeView.Resources>
+                            <HierarchicalDataTemplate DataType="{x:Type self:TreeViewItem}" ItemsSource="{Binding Children}">
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox IsChecked="{Binding Path=EnableForUpdate, Mode=TwoWay}" />
+                                    <TextBlock Text="{Binding Name}" />
+                                    <TextBlock Text=" (" />
+                                    <TextBlock Text="{Binding DisplayTypeName}" />
+                                    <TextBlock Text=")" />
+                                </StackPanel>
+                            </HierarchicalDataTemplate>
+                        </TreeView.Resources>
+                    </TreeView>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>
